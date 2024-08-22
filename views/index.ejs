@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            height: 100vh;
+            background-color: rgb(41, 41, 47);
+            color: white;
+            width: 100vw;
+        }
+        .wrapper{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            width: 100%;
+            gap: 1.5em;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            /* align-items: center; */
+            width: 50%;
+            gap: 1em;
+        }
+      
+        #qrInput {
+            padding: 1em;
+            font-size: 1em;
+            font-weight: 600;
+            text-align: center;
+            outline: none;
+            border: none;
+        }
+        #qrInput::placeholder {
+           color: rgb(107, 105, 108);
+        }
+        input[type="submit"] {
+            padding:1em;
+            font-weight: 600;
+            font-size: 1em;
+            cursor: pointer;
+            outline: none;
+            border: none;
+        }
+
+        input[type="submit"]:hover {
+            background-color: rgb(86, 86, 103);
+            color: white;
+        }
+        .qrWrapper{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 1em;
+        }
+    </style>
+    <title>QR Generator</title>
+</head>
+
+<body>
+    <div class="wrapper">
+        <h1>QR Generator</h1>
+
+        <form action="/submit" method="post" onsubmit="return validateForm()">
+            <input type="text" name="qrInput" id="qrInput" placeholder="Enter text to generate QR">
+            <input type="submit" value="SUBMIT" >
+        </form>
+        <% if(locals.qrData) { %>
+            <div class="qrWrapper">
+                <h2>Here's your QR !</h2>
+                <img src="<%= qrData %>" alt="Generated Image" width="200px" height="200px">
+            </div>
+        <% } %>
+    </div>
+
+
+    <script>
+        function validateForm() {
+          // Get the input element
+          const qrInput = document.getElementById('qrInput');
+        
+          // Check if the value is empty
+          if (qrInput.value.trim() === '') {
+            alert("Please enter text to generate the QR code!");
+            return false; // Prevent form submission
+          }
+        
+          // If not empty, allow form submission
+          return true;
+        }
+        </script>
+</body>
+
+</html>
